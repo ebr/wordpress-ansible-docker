@@ -26,6 +26,7 @@
 
 - name: Create MySQL DB
   command: docker exec -t mysql-setup-db mysql -e 'create database wordpress'
+  ignore_errors: true
 
 - name: Clean up
   docker_container:
