@@ -31,6 +31,11 @@ Once done: `make clean`.
 
 Simple `vagrant up` will use Vagrant's own Ansible provisioner. This is really the sane way anyone would do this. Quickstart above chooses the hard way by connecting to `vagrant` over SSH.
 
+To run in EC2:
+
+  - Assuming ec2 instance is running, accessible on port 22/SSH, and public key authentication works
+  - edit `hosts` and replace `EC2_HOST` with the IP address or DNS name of your EC2 instance
+  - `make ec2`
 
 
 # TODO
