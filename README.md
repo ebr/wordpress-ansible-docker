@@ -32,4 +32,7 @@ Ansible's `docker` provisioner is used
   - deploy WP with `fpm` instead of Apache
   - better hardening of the Ubuntu system (`fail2ban`, etc)
   - pass secrets as environment variables or Ansible secrets
+  - do an apt-check on docker repo's key
+  - actually set mysql db password
   - parametrize version of MySQL image
+  - skip dbsetup if not needed

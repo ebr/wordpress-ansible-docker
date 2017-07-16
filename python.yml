@@ -2,6 +2,5 @@
 - hosts: all
   tasks:
   - name: Install Python
-    # `shell` module used intentionally for reliable early bootstrap
-    shell: apt-get install -y python python-pip
+    raw: apt-get install -y python python-pip
     become: yes
