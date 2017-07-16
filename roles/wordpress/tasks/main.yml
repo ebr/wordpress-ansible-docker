@@ -1,0 +1,30 @@
+---
+- name: Create workdir
+  file:
+    path: /wordpress
+    state: directory
+    mode: 0755
+
+- name: Create wp-config
+  template:
+    src: templates/wp-config.php
+    dest: /wordpress/wp-config.php
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Create docker-compose file
+  template:
+    src: files/docker-compose.yml
+    dest: /wordpress/docker-compose.yml
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Create WP + MySQL
+  docker_service:
+    project_src: /wordpress
+
+
+
+

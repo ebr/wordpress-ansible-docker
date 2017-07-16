@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  wordpress:
+    image: library/wordpress:4-apache
+    ports:
+      - 8081:80
+    volumes:
+      - /wordpress/wp-config.php:/var/www/html/wp-config.php
+    links:
+      - db:db
+
+  db:
+    image: library/mysql
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
+    external: true
