@@ -1,0 +1,11 @@
+---
+- name: Test SSH connection as user
+  hosts: all
+  tasks:
+    - name: Who Am I
+      command: whoami
+    - name: Where Am I
+      command: pwd
+    - name: Can I sudo
+      become: yes
+      command: sudo -s

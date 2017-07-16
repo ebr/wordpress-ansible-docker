@@ -1,0 +1,6 @@
+---
+- name: Dockerized wordpress server
+  hosts: all
+  become: yes
+  roles:
+    - docker

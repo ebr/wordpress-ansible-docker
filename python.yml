@@ -1,0 +1,6 @@
+---
+- hosts: all
+  tasks:
+  - name: Install Python
+    shell: apt-get install -y python
+    become: yes
