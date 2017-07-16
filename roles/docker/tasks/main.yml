@@ -66,6 +66,10 @@
     name: docker-engine
     state: present
 
+- name: Install docker-py
+  pip:
+    name: docker-py
+
 - name: Create docker group
   group:
     name: docker

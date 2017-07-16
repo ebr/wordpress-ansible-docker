@@ -1,0 +1,33 @@
+---
+- name: Mysql data volume exists?
+  command: docker volume inspect {{ datavolume }}
+  register:  datavolume_exists
+  failed_when: false
+
+- name: Create data volume
+  command: docker volume create --name {{ datavolume }}
+  when: datavolume_exists|failed
+
+- name: Launch MySQL for DB creation
+  docker_container:
+    name: mysql-setup-db
+    image: library/mysql
+    env:
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+    volumes:
+      - "{{ datavolume }}:/var/lib/mysql"
+    ports:
+      - 3306:3306
+
+- wait_for:
+    host: 127.0.0.1
+    port: 3306
+    delay: 10
+
+- name: Create MySQL DB
+  command: docker exec -t mysql-setup-db mysql -e 'create database wordpress'
+
+- name: Clean up
+  docker_container:
+    name: mysql-setup-db
+    state: absent

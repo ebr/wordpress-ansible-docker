@@ -4,3 +4,6 @@
   become: yes
   roles:
     - docker
+    - dbsetup
+  vars:
+    - datavolume: mysql_data
