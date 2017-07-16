@@ -12,9 +12,17 @@
     - linux-image-extra-{{ ansible_kernel }}
     - linux-image-extra-virtual
     - apt-transport-https
+    - python-pip
     - curl
     - software-properties-common
     - ca-certificates
+
+- name: Install pip docker modules
+  pip:
+    name:
+      - docker
+      - docker-compose
+      - pyyaml
 
 - name: Add Docker repo key
   # yes, use `shell` because w/ apt-key it fails on 14.04
@@ -29,13 +37,6 @@
   apt:
     name: docker-ce
     state: present
-
-- name: Install pip docker modules
-  pip:
-    name:
-      - docker
-      - docker-compose
-      - pyyaml
 
 - name: Create docker group
   group:

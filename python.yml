@@ -2,5 +2,5 @@
 - hosts: all
   tasks:
   - name: Install Python
-    raw: apt-get install -y python python-pip
+    raw: apt-get install -y python
     become: yes
