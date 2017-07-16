@@ -20,10 +20,9 @@ $ make
     - MySQL server:
       - Uses official MySQL image
       - data dir bind-mounted to a directory on the host
-    - Once deployed, server is available on http://localhost:8081
+    - Once deployed, use Wordpress on http://localhost:8081
 
 Ansible's `docker` provisioner is used
-
 
 # Notes
 
@@ -36,3 +35,5 @@ Ansible's `docker` provisioner is used
   - actually set mysql db password
   - parametrize version of MySQL image
   - skip dbsetup if not needed
+  - persist `wp-content` on host filesystem. Maybe copy out of the image first?
+  - increase density by running multiple WP+MySQL stacks and putting Nginx in front to route traffic based on hostname
