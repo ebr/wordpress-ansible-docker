@@ -3,41 +3,6 @@
   apt:
     update_cache: yes
 
-# - name: Ensure LXD/LXC services are stopped
-#   service:
-#     name:
-#       - lxd-containers.service
-#       - lxd.socket
-#       - lxcfs.service
-#     state: stopped
-#     enabled: no
-#   ignore_errors: yes
-
-# - name: Uninstall LXD/LXC packages
-#   apt:
-#     name: "{{ item }}"
-#     state: absent
-#     purge: yes
-#   with_items:
-#     - lxc-common
-#     - lxc-docker
-#     - lxcfs
-#     - lxd
-#     - lxd-client
-#     # - lxc
-#     # - lxc-android-config
-#     # - lxc-dev
-#     # - lxc-templates
-#     # - lxc-tests
-#     # - lxc1
-#     # - lxc2
-#     # - lxd-tools
-
-# - name: Remove lxc user
-#   user:
-#     name: lxc
-#     state: absent
-
 - name: Install package prerequisites for Docker
   apt:
     name: "{{ item }}"
@@ -47,28 +12,30 @@
     - linux-image-extra-{{ ansible_kernel }}
     - linux-image-extra-virtual
     - apt-transport-https
-    - ca-certificates
     - curl
     - software-properties-common
+    - ca-certificates
 
 - name: Add Docker repo key
-  apt_key:
-    keyserver: "hkp://p80.pool.sks-keyservers.net:80"
-    id: "58118E89F3A912897C070ADBF76221572C52609D"
+  # yes, use `shell` because w/ apt-key it fails on 14.04
+  shell: "curl -sSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -"
 
 - name: Add Docker repo
   apt_repository:
-    repo: "deb https://apt.dockerproject.org/repo {{ansible_distribution|lower}}-{{ ansible_distribution_release }} main"
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
     update_cache: yes
 
 - name: Install docker package
   apt:
-    name: docker-engine
+    name: docker-ce
     state: present
 
-- name: Install docker-py
+- name: Install pip docker modules
   pip:
-    name: docker-py
+    name:
+      - docker
+      - docker-compose
+      - pyyaml
 
 - name: Create docker group
   group:
