@@ -6,7 +6,7 @@ vagrant:
 clean:
 	vagrant destroy -f
 
-ec2:
+remote:
 	ansible-playbook -i hosts python.yml --limit $@
 	ansible-playbook -i hosts main.yml --limit $@
 

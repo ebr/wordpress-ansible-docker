@@ -29,16 +29,21 @@ Once done: `make clean`.
 
 ## Other ways to run
 
-A simple `vagrant up` will use Vagrant's own Ansible provisioner. This is really the sane way anyone would do this. Quickstart above chooses the hard way by connecting to `vagrant` over SSH.
+`vagrant up` will use Vagrant's own Ansible provisioner. As opposed to Quickstart above, which chooses the hard way by connecting to `vagrant` host over SSH.
 
-##### To run in EC2:
+### To run on a remote host:
 
-Assumptions: EC2 instance is running, is accessible on port 22/SSH, and public key authentication works.
+  0. edit `hosts` and replace `REMOTE_HOST` with the target's IP address or DNS name
+  0. `make remote`
 
-  - edit `hosts` and replace `EC2_HOST` with the IP address or DNS name of your EC2 instance
-  - `make ec2`
+###### Assumptions:
+  - remote host is running
+  - is accessible on port `22` (`ssh`)
+  - user `ubuntu` exists
+  - public key authentication works for `ubuntu` user
+  - paswordless `sudo` set up for `ubuntu` user
 
-Once run is complete, [http://EC2_HOST:8081]() will launch the Wordpress setup wizard.
+Once run is complete, [http://REMOTE_HOST:8081]() will launch the Wordpress setup wizard.
 
 # TODO
 
